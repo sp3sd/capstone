@@ -1,0 +1,327 @@
+---
+title: "NLP Instructional Guide"
+author: "Sean Pietrowicz (f004nx1)"
+date: "7/10/2022"
+output: pdf_document
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Natural Language Processing Guide
+
+## What is Natural Language Processing?
+
+Natural Language Processing (NLP) is a form of data analysis at the
+cross-section of computer science and linguistics. The goal of NLP is to
+process text data such that computers can understand nuances within the
+language in ways that a human can-- identifying attributes like tone,
+topic and keyword recognition as well as classifying, summarizing,
+translating and more. When one leverages the processing power of modern
+programming to dissect large, otherwise unwieldy quantities of text, it
+makes previously inaccessible analyses possible.
+
+### Some examples of text data:
+
+-   Natural language text
+-   Social media text, like Twitter, Reddit, blogs
+-   News, Wikipedia, movies comments, text from internet
+-   Traditional text on paper, like books
+-   Electronic health records, pathology reports
+
+### Some Real-World NLP Examples:
+
+Some applications of natural language processing in various professional
+sectors:
+
+**Healthcare:**
+
+-   Speech Recognition
+-   Clinical Decision Support
+-   Chatbot
+
+**Social Media**
+
+-   Topic Model
+-   Named Entity Recognition
+
+**Electronic business:**
+
+-   Keyword Search
+-   Sentiment Analysis
+
+**Variations of NLP**
+
+-   Natural language understanding (NLU): understand language (digest
+    import text)
+-   Natural language generation (NLG): use language (export text or
+    labels)
+
+## Common NLP Tasks
+
+-   Topic modeling
+-   Text Translation
+-   Text Generation, chat bots, word editors, email auto-complete
+-   Image captioning, image to text, text to image
+-   Sentiment analysis / semantic databases
+-   Text Classification & regression
+-   Structured information extraction
+-   NER (Named Entity Recognition)
+
+# Cleaning and Preparing Text Data for Topic Modeling:
+
+Before we can apply NLP algorithms to analyze passages of text, it is
+helpful to ensure that some essential elements of the text are
+standardized for better analysis. Below are a few of the common steps
+that are often necessary to prepare text for optimized NLP.
+
+## Stemming and Lemmatization:
+
+Stemming and lemmatization the process of reducing different forms of
+the same word to a consistent format across a body of text. Stemming
+truncates the word to only its root (the words computer, computation and
+computed become "comput"), while lemmatization standardizes words to a
+common form ("is," "am," "was" and "are" can convert to "be"). This
+technique is particularly essential for topic modeling (the process of
+extracting the overarching subject matter of a chunk of text) because it
+ensures that redundant forms of the same keyword are not double-counted.
+
+Example:
+
+> Original: I've enjoyed these tutorials because learning code is fun
+
+> Lemmatized: I enjoy this tutorial because learn code be fun
+
+**Further information:** [Lemmatization Approaches with Examples in
+Python](https://www.machinelearningplus.com/nlp/lemmatization-examples-python/)
+
+## Stop word removal:
+
+"Stop words" are superfluous words that rarely advance the meaning of a
+sentence and should be filtered out to avoid diluting the importance of
+actual recurring keywords. Words like "a," "what," "as," "he," "does,"
+etc. can crowd out relevant information extracted from a passage-- when
+one runs an analysis hoping to determine the distinctive underlying
+topics and themes of a document, not a list of prepositions, articles
+and pronouns that appear in every sentence.
+
+Example:
+
+> Lemmatized: I enjoy this tutorial because learn code be fun
+
+> Stop words removed: enjoy tutorial learn code fun
+
+**Further information:** [Text pre-processing: Stop words removal using
+different
+libraries](https://towardsdatascience.com/text-pre-processing-stop-words-removal-using-different-libraries-f20bac19929a)
+
+## N-grams and negation
+
+Often, the meaning of a sentence can change drastically if the
+positioning of words are altered within a sentence. The concept of
+**n-grams** is that certain sequences of words can appear often enough
+in an exact order to where tracking these phrases as distinct entities
+will enhance the comprehension of the text. "Bigrams" are two word
+phrases, "trigrams" are three word phrases, and so on.
+
+N-grams have countless applications and are particularly ubiquitous for
+online search engines-- if one typed "stranger things season" into
+Google and received results about baffling meteorological anomalies in
+summer or winter, that would obviously waste people's time. Clusters of
+words commonly carry contextual meanings beyond just each word in
+isolation, and n-grams are a common way to implement this concept into
+natural language processing.
+
+**Further information:** [Simple NLP in Python with TextBlob: N-Grams
+Detection](https://stackabuse.com/simple-nlp-in-python-with-textblob-n-grams-detection/)
+
+**Negation** is an obvious and crucial implication of word order. When
+one uses words such as "not," "dislike," "no," or ", but" in a sentence,
+it radically changes the meaning. For example, if a computer attempted
+to analyze Dr. Seuss's [*Green Eggs and
+Ham*](https://www.clear.rice.edu/comp200/resources/texts/Green%20Eggs%20and%20Ham.txt),
+it is essential that the program distinguishes between "not like" and
+"like" as phrases, since doing so is crucial to the passage's meaning.
+
+One can account for negation using specialized packages or broadly
+implementing n-grams when performing natural language processing.
+Sometimes, negation does not matter if one simply wants to know the
+topic of a passage e.g. attempting to identify film reviews specifically
+for Tommy Wiseau's *The Room*, regardless of if the reviewer has a
+positive or negative opinion of *The Room*. However, negation is
+critical to the field of sentiment analysis (analyzing the tone of a
+document based on the perceived "positivity" and "negativity" of the
+words used).
+
+**Further Information:** [Python Sentiment Analysis
+Tutorial](https://www.datacamp.com/tutorial/simplifying-sentiment-analysis-python)
+
+## Parts of Speech Tags
+
+Part of speech tags are quote self-explanatory; they schematize the
+structure of a sentence into nouns, verbs, adjectives, etc. This process
+is especially crucial for text generation, such as chat bots and search
+engine autocomplete functions and can offer an important look into the
+structure of the text.
+
+# NLP Models
+
+Broadly speaking, these first steps all serve to distill a long string
+of text into its most essential, digestible elements, a process called
+**tokenization**. Tokenization ensures that the text can be broken down
+into individual units (words and/or n-grams) for the computer to
+interpret. Below are a series of common packages in python that contain
+built-in functions to facilitate this process, some often used in
+conjunction with one another depending on the goal of the project and
+personal preference. These packages almost all have official pages
+online containing :
+
+-   Regex
+-   Textblob
+-   Spacy
+-   NLTK
+-   Scikit learn
+-   Gensim
+-   Huggingface transformers
+-   Tomotopy
+
+## [Bag of Words Tokenizer](https://www.freecodecamp.org/news/an-introduction-to-bag-of-words-and-how-to-code-it-in-python-for-nlp-282e87a9da04/)
+
+Imagine that the input text being in physical jumbled bag of words--
+only data maintained is the number of occurrences of each word. A "bag
+of words" tokenizer enables the input data to be represented with a
+count matrix.
+
+## [Machine Learning Methods](https://neptune.ai/blog/tokenization-in-nlp)
+
+Machine learning refers to the type of algorithm that adjusts its own
+parameters in order to optimize some loss/cost function. Machine
+learning algorithms are often the best choice, despite their reduced
+complexity-- they are quicker to set up, faster to run, and easier to
+diagnose.
+
+### [Logistic regression:](https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression)
+
+-   Supervised classification algorithm
+-   Similar to linear regression but with feature contributions in the
+    logarithmic space
+
+### [K-means clustering:](https://scikit-learn.org/stable/modules/clustering.html#k-means)
+
+-   Unsupervised classification algorithm
+-   Groups inputs into common clusters
+
+### [Support Vector Machines:](https://scikit-learn.org/stable/modules/svm.html)
+
+-   Supervised classification algorithm
+-   Finds partition between two known clusters
+
+### [Decision trees:](https://scikit-learn.org/stable/modules/tree.html)
+
+-   Makes decisions on series of data points to distinguish between
+    possible outcomes
+
+### [Word & sentence embedding:](https://www.analyticsvidhya.com/blog/2020/08/top-4-sentence-embedding-techniques-using-python/)
+
+-   One hot encoding
+-   Countvectorizer
+-   These two methods provide a cumbersome word similarity matrix with
+    many 0s-- this sparsity can be solve with word vectors
+
+# Topic Modeling:
+
+Topic modeling is a way to understand the primary topics of each
+document in a corpus (set of documents). Below is a quick overview of
+some important topic modeling principles.
+
+## Topic Model Concept: TF-IDF
+
+When learning about NLP, the acroynm "TF-IDF" will come up frequently.
+**Term Frequency-Inverse Document Frequency** is the most common form of
+a document-term matrix-- a common way to summarize the information
+stored in a tokenized corpus (set) of text documents.
+
+-   **Term frequency** details how often each word is present in a given
+    document, relative to the number of words in that document.
+-   **Inverse Document Frequency** is how often a document contains a
+    given word, relative to the number of documents in a corpus.
+
+When these two metrics are used together, they can calculate how
+relevant a word is to the meaning of a particular document. If a word is
+used extremely frequently in a few documents and rarely anywhere else in
+the corpus, then it could be a primary focus of those particular
+documents. Meanwhile, if a word is used frequently in every document,
+then it may not be as noteworthy. This principle is central to many
+forms of topic modeling. **Further Reading:** [TF-IDF Term Weighting
+Implementation](https://scikit-learn.org/stable/modules/feature_extraction.html#tfidf-term-weighting)
+
+## Common Bag-of-Words Topic Models:
+
+-   [Latent Semantic Analysis
+    (LSA):](https://scikit-learn.org/stable/modules/decomposition.html#lsa)
+    the most basic topic model, very quick to implement and intuitive
+    for students familiar with principle components analysis (PCA).
+    However, LSA is often clunky and misses deeper nuances of the text.
+    ([additional
+    tutorial](https://www.datacamp.com/tutorial/discovering-hidden-topics-python))
+-   [Latent Dirichlet Analysis
+    (LDA):](https://scikit-learn.org/stable/modules/decomposition.html#latentdirichletallocation)
+    a probabilistic model that almost always offers more nuanced results
+    than LSA but is more resource-intensive, finicky and occasionally
+    unintuitive for beginners to NLP. Assumes each document to some
+    extent is a mix of underlying topics spread across the corpus and
+    calculates the probability of each document's affiliation with a
+    particular topic. ([additional
+    tutorial](https://www.datacamp.com/tutorial/discovering-hidden-topics-python))
+-   [Non-Negative Matrix Factorization
+    (NMF):](https://scikit-learn.org/stable/modules/generated/sklearn.decomposition.NMF.html):
+    a matrix decomposition model that runs very quickly relative to LDA
+    and can offer more consistent results than LDA. However, NMF
+    sometimes returns less easy-to-interpret sets of topics compared to
+    LDA, depending on the type of text data.
+
+# Other NLP Models:
+
+## [Word2vec](https://www.tensorflow.org/tutorials/text/word2vec)
+
+Word2Vec is a relatively recent NLP technique from 2013 that uses a
+neural network to model word associations (essentially optimizing the
+composition of a bag of words or a series of n-grams), the aggregate of
+which can be used for sentence construction and prediction. The
+embeddings of these patterns within a document can take multiple forms
+and have utility for bioinformatics and DNA sequencing.
+
+-   Static Embedding -- Word vectors, one-hot encoding, countvectorizer.
+
+-   Dynamic Embedding -- Deep Learning model
+
+## [CNN LSTM Transformers](https://machinelearningmastery.com/cnn-long-short-term-memory-networks/)
+
+CNN Long Short-Term Memory Network transformers identify accidental
+biases in complex networks. Example interpretation methods include SHAP
+and LIME. These methods are implemented with python packages such as
+shap and Captum and have utility for text translation.
+
+## Deep Learning Models:
+
+Deep learning models use multiple layers of neural networks to create
+complex machine learning models directly from input data.
+
+**Links to deep learning model tutorials:**
+
+-   [BERT](https://maartengr.github.io/BERTopic/index.html)
+-   [Distilbert](https://huggingface.co/docs/transformers/model_doc/distilbert#:~:text=DistilBERT%20is%20a%20small%2C%20fast,the%20GLUE%20language%20understanding%20benchmark.)
+-   [RoBERTa](https://arxiv.org/pdf/1907.11692.pdf%5C)
+-   [XLNet](https://huggingface.co/docs/transformers/model_doc/xlnet)
+-   [GPT3](https://www.fullstackpython.com/gpt-3.html)
+
+**Example Applications of Deep Learning:**
+
+-   Text classification
+-   Text regression
+-   Autocomplete (text generation)
+-   Named entity recognition
